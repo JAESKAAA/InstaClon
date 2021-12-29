@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{ //커스텀시
 		
 		
 		http.authorizeRequests() 
-			.antMatchers("/","/user/**","/image/**","/subscribe/**","/comment/**").authenticated()
+			.antMatchers("/","/user/**","/image/**","/subscribe/**","/comment/**","/api/**").authenticated()
 			.anyRequest().permitAll()
 			.and()
 			.formLogin()
