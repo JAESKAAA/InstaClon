@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ViewControllerTest {
 //
-//	@GetMapping("/auth/signup")
-//	public String signupPage() {
-//		return "auth/signup";
-//	}
+	@GetMapping("/auth/signup")
+	public String signupPage() {
+		return "auth/signup";
+	}
 //	
 //	@GetMapping("/auth/signin")
 //	public String signinPage() {
