@@ -25,7 +25,12 @@ public class ControllerExceptionHandler {
 		 * 2. Ajax 통신  - CMRespDto //응답을 개발자가 응답을 받으므로
 		 * 3. Android 통신 - CMRespDto //안드로이드 앱에서 개발자가 응답을 받음
 		 * */ 
-		return Script.back(e.getErrorMap().toString());
+		
+		if(e.getErrorMap() == null ) {
+			return Script.back(e.getMessage());
+		}else {
+			return Script.back(e.getErrorMap().toString());
+		}
 	}
 	
 	@ExceptionHandler(CustomValidationApiException.class)
