@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
+import com.cos.photogramstart.handler.ex.CustomException;
 import com.cos.photogramstart.handler.ex.CustomValidationApiException;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,13 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public User userProfile(int userId) {
+		User userEntity = userRepository.findById(userId).orElseThrow(
+				()-> new CustomException("해당 프로필 페이지는 존재하지 않습니다."));
+		return userEntity;
+	}
+	
 	@Transactional
 	public User updateUser(int id, User user) {
 		
