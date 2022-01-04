@@ -8,6 +8,7 @@ import com.cos.photogramstart.domain.user.User;
 import com.cos.photogramstart.domain.user.UserRepository;
 import com.cos.photogramstart.handler.ex.CustomException;
 import com.cos.photogramstart.handler.ex.CustomValidationApiException;
+import com.cos.photogramstart.web.dto.user.UserProfileDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,10 +19,18 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	public User userProfile(int userId) {
-		User userEntity = userRepository.findById(userId).orElseThrow(
+	@Transactional(readOnly = true)
+	public UserProfileDto userProfile(int pageUserId, int principalId) {
+		UserProfileDto dto = new UserProfileDto();
+		
+		User userEntity = userRepository.findById(pageUserId).orElseThrow(
 				()-> new CustomException("해당 프로필 페이지는 존재하지 않습니다."));
-		return userEntity;
+		
+		dto.setUser(userEntity);
+		dto.setPageOwnerState(pageUserId == principalId); //1은 페이지 주인, -1은 페이지 주인이 아님
+		dto.setImageCount(userEntity.getImages().size()); //게시글 갯수 출력을 위한 데이터
+
+		return dto;
 	}
 	
 	@Transactional
