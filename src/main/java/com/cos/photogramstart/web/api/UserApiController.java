@@ -47,6 +47,15 @@ public class UserApiController {
 			
 			//세션의 유저를 변경된 유저정보로 바꿔줌
 			principalDetails.setUser(userEntity);
+			
+			/*
+			 * [하기 return에서 무한참조 발생 이유]
+			 * 1. update.js에서 응답 데이터를 json으로 요청
+			 * 2. userEntity가 객체이기 때문에 MessageConvertor가 해당 필드의 모든 Getter함수를 호출하여 JSON으로 파싱하는 과정을 거침
+			 * 3. 이때, userEntity안에 Image를 참조하게 되고, Image에서는 User를 다시 참조하면서 무한 참조가 발생
+			 * 
+			 * */
+			
 			return new CMRespDto<>(1, "회원수정완료", userEntity);
 
 		}

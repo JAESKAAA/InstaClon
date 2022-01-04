@@ -49,7 +49,7 @@ public class UserService {
 		//상기 코드를 람다식으로 가독성 좋게 변경
 		//또한 만들어둔 CustomValidationApiException에서 잡을 수 있도록 예외 클래스 변경
 		//변경하면 컴파일에러가 발생하는데, 생성자가 유효한 것이 없기 때문임. 스트링만 받는 생성자 하나 추가하도록 하자
-		User userEntity = userRepository.findById(10).orElseThrow(()-> {
+		User userEntity = userRepository.findById(id).orElseThrow(()-> {
 			return new CustomValidationApiException("찾을수 없는 아이디입니다.");
 				});
 		

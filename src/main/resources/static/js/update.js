@@ -14,7 +14,7 @@ function update(userId, event) {
 		dataType : "json"
 	}).done(res=>{ //HttpStatus 코드가 200번대일때
 		console.log("성공",res);
-		location.href=`/user/{userId}`;
+		location.href=`/user/${userId}`;
 	}).fail(error=>{ //HttpStatus 코드가 200번대가 아닐때
 		if(error.data ==null){
 			alert(error.responseJSON.message);
