@@ -28,8 +28,16 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Integer> {
 	void mSubscribe(int fromUserId, int toUserId);
 	
 	@Modifying
-	@Query(value= "DELETE FROM subscribe WHERE fromUserId = :fromUserId AND toUserId = :toUserId)"
+	@Query(value= "DELETE FROM subscribe WHERE fromUserId = :fromUserId AND toUserId = :toUserId"
 			, nativeQuery = true)
 	void mUnsubscribe(int fromUserId, int toUserId);
+	
+	//select 쿼리이기 때문에 Modifying은 설정 안해줘도 됨
+	@Query(value= "SELECT COUNT(*) FROM subscribe WHERE fromUserId = :pageUserId", nativeQuery = true)
+	int mSubscribeCount(int pageUserId);
+	
+	@Query(value= "SELECT COUNT(*) FROM subscribe WHERE fromUserId = :principalId AND toUserId= :pageUserId", nativeQuery = true)
+	int mSubscribeState(int principalId, int pageUserId);
+	
 	
 }
